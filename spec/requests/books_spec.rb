@@ -16,7 +16,7 @@ describe 'Books API', type: :request do
       expect(response).to have_http_status(:success)
 
       #checks that there are actuall books being returned
-      expect(JSON.parse(response.body).size).to eq(2)
+      expect(response_body.size).to eq(2)
     end
   end
 
