@@ -16,4 +16,6 @@ Ruby on Rails Rest API of a Bookshelf
 
 * Try `http://localhost:3000/api/v1/books`
 
+### Aditional info
+
 * Run `spec` to see all the tests that are in place
