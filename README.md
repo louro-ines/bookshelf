@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails Rest API of a Bookshelf
 
-Things you may want to cover:
+## Getting started
 
-* Ruby version
+* Install the Ruby version `2.7.3`
 
-* System dependencies
+* Install PostgreSQL
 
-* Configuration
+* Run `bundle install` to install all the necessary gems
 
-* Database creation
+* Create the database with `rails db:create` followed by `rails db:migrate`
 
-* Database initialization
+* Start the server with `rails s`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Try `http://localhost:3000/api/v1/books`
