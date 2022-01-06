@@ -18,4 +18,4 @@ Ruby on Rails Rest API of a Bookshelf
 
 ### Aditional info
 
-* Run `spec` to see all the tests that are in place
+* Run `rspec` to see all the tests that are in place
