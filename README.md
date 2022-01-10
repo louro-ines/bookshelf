@@ -10,7 +10,7 @@ Ruby on Rails Rest API of a Bookshelf
 
 * Run `bundle install` to install all the necessary gems
 
-* Create the database with `rails db:create` followed by `rails db:migrate`
+* Create the database with `rails db:create` followed by `rails db:migrate` and `rails db:seed`
 
 * Start the server with `rails s`
 
