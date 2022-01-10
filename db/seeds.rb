@@ -11,17 +11,23 @@ puts 'Creating Seeds'
 puts '..Deleting Authors'
 Author.destroy_all
 
-puts '..Creating 1 Author'
+puts '..Creating 2 Authors'
 author = Author.create(
   first_name: 'Andreas',
   last_name: 'Antonopoulos',
   age: 50
 )
 
+author2 = Author.create(
+  first_name: 'Daniel',
+  last_name: 'Kahneman',
+  age: 87
+)
+
 puts '..Deleting Books'
 Book.destroy_all
 
-puts '..Creating 2 Books'
+puts '..Creating 3 Books'
 Book.create(
   author: author,
   title: 'Mastering Bitcoin'
@@ -30,6 +36,11 @@ Book.create(
 Book.create(
   author: author,
   title: 'Mastering the Lightning Network'
+)
+
+Book.create(
+  author: author2,
+  title: 'Thinking Fast and Slow'
 )
 
 puts 'Done 🌱'
