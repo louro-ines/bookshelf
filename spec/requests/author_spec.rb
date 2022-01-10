@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'API', type: :request do
+describe 'API Author', type: :request do
   describe 'GET /authors' do
     before do
       FactoryBot.create(:author)
