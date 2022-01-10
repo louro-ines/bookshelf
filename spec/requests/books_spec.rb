@@ -17,6 +17,24 @@ describe 'Books API', type: :request do
 
       #checks that there are actuall books being returned
       expect(response_body.size).to eq(2)
+
+      #checks the actual content of response
+      expect(response_body).to eq(
+        [
+          {
+            'id' => 1,
+            'title' => '1984',
+            'author_name' => 'George Orwell',
+            'author_age' => 99
+          },
+          {
+            'id' => 2,
+            'title' => 'Animal Farm',
+            'author_name' => 'George Orwell',
+            'author_age' => 99
+          }
+        ]
+      )
     end
   end
 
@@ -37,6 +55,16 @@ describe 'Books API', type: :request do
 
       #checks the response code
       expect(response).to have_http_status(:created)
+
+      #checks the actual content of response
+      expect(response_body).to eq(
+        {
+          'id' => 1,
+          'title' => 'The Bitcoin Standard',
+          'author_name' => 'Saifedean Ammous',
+          'author_age' => 40
+        }
+      )
     end
   end
 
