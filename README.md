@@ -4,9 +4,9 @@ Ruby on Rails Rest API of a Bookshelf
 
 ## Getting started
 
-* Install the Ruby version `2.7.3`
+* Install the Ruby version `2.7.3` (manually or using [rvm](https://rvm.io) for example)
 
-* Install PostgreSQL
+* Install PostgreSQL (for example via [brew](https://brew.sh))
 
 * Run `bundle install` to install all the necessary gems
 
@@ -14,7 +14,7 @@ Ruby on Rails Rest API of a Bookshelf
 
 * Start the server with `rails s`
 
-* Try `http://localhost:3000/api/v1/books`
+* Try `http://127.0.0.1:3000/`
 
 ### Aditional info
 
