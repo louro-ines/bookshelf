@@ -5,7 +5,7 @@ describe 'Books API', type: :request do
 
   describe 'GET /books' do
     before do
-      FactoryBot.create(:book, title:'1984', author: author)
+      FactoryBot.create(:book)
       FactoryBot.create(:book, title:'Animal Farm', author: author)
     end
 
@@ -23,9 +23,9 @@ describe 'Books API', type: :request do
         [
           {
             'id' => 1,
-            'title' => '1984',
-            'author_name' => 'George Orwell',
-            'author_age' => 99
+            'title' => 'The Bitcoin Standard',
+            'author_name' => 'Saifedean Ammous',
+            'author_age' => 40
           },
           {
             'id' => 2,
@@ -45,8 +45,8 @@ describe 'Books API', type: :request do
       # by comparing the number of rows in the database before and after the post request
       expect {
         post '/api/v1/books', params: {
-          book: { title: 'The Bitcoin Standard' },
-          author: {first_name: 'Saifedean', last_name: 'Ammous', age: 40 }
+          book: { title: '1984' },
+          author: {first_name: 'George', last_name: 'Orwell', age: 99 }
         }
       }.to change { Book.count }.from(0).to(1)
 
@@ -60,9 +60,9 @@ describe 'Books API', type: :request do
       expect(response_body).to eq(
         {
           'id' => 1,
-          'title' => 'The Bitcoin Standard',
-          'author_name' => 'Saifedean Ammous',
-          'author_age' => 40
+          'title' => '1984',
+          'author_name' => 'George Orwell',
+          'author_age' => 99
         }
       )
     end
