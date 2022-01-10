@@ -45,8 +45,7 @@ describe 'Books API', type: :request do
       # by comparing the number of rows in the database before and after the post request
       expect {
         post '/api/v1/books', params: {
-          book: { title: '1984' },
-          author: {first_name: 'George', last_name: 'Orwell', age: 99 }
+          book: { title: '1984', author_id: author.id },
         }
       }.to change { Book.count }.from(0).to(1)
 

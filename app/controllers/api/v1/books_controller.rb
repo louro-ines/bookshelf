@@ -2,18 +2,17 @@ module Api
   module V1
     class BooksController < ApplicationController
       def index
-        books = Book.all
-        render json: BooksRepresenter.new(books).as_json
+        @books = Book.all
+        render json: BooksRepresenter.new(@books).as_json
       end
 
       def create
-        author = Author.create(author_params)
-        book = Book.new(book_params.merge(author_id: author.id))
+        @book = Book.new(book_params)
 
-        if book.save
-          render json: BookRepresenter.new(book).as_json, status: :created #201
+        if @book.save
+          render json: BookRepresenter.new(@book).as_json, status: :created #201
         else
-          render json: book.errors, status: :unprocessable_entity #422
+          render json: @book.errors, status: :unprocessable_entity #422
         end
       end
 
@@ -24,12 +23,9 @@ module Api
       end
 
       private
-      def author_params
-        params.require(:author).permit(:first_name, :last_name, :age)
-      end
 
       def book_params
-        params.require(:book).permit(:title)
+        params.require(:book).permit(:title, :author_id)
       end
     end
   end
