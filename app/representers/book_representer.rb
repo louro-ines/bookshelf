@@ -10,7 +10,6 @@ class BookRepresenter
         author_name: "#{book.author.first_name} #{book.author.last_name}",
         author_age: book.author.age
       }
-    end
   end
 
   private
