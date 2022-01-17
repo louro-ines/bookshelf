@@ -64,7 +64,7 @@ describe 'API Book', type: :request do
       end
     end
 
-    context "when book doen't exist" do
+    context "when book doesn't exist" do
       let(:book_id) { 0 }
 
       it 'returns an error message' do
@@ -124,16 +124,29 @@ describe 'API Book', type: :request do
   describe 'POST /books/:id' do
     let(:book) { FactoryBot.create(:book) }
     let(:new_title) { { title: 'The Fiat Standard' } }
+    context 'when book exists' do
+      it 'updates the book we wanted' do
+        put "/api/v1/books/#{book.id}", params: { book: new_title }
 
-    it 'updates the book we wanted' do
-      put "/api/v1/books/#{book.id}", params: { book: new_title }
+        #checks the response code
+        expect(response).to have_http_status(:no_content)
 
-      #checks the response code
-      expect(response).to have_http_status(:no_content)
+        # checks that the book was actually updated
+        updated_item = Book.find(book.id)
+        expect(updated_item.title).to match(/The Fiat Standard/)
+      end
+    end
 
-      # checks that the book was actually updated
-      updated_item = Book.find(book.id)
-      expect(updated_item.title).to match(/The Fiat Standard/)
+    context "when book doesn't exist" do
+      let(:book_id) { 0 }
+      it 'returns an error message' do
+        put "/api/v1/books/#{book_id}"
+        #checks the response code
+        expect(response).to have_http_status(:not_found)
+
+        #checks that there is being returned a not found message
+        expect(response.body).to include("Couldn't find Book with 'id'=0")
+      end
     end
   end
 
