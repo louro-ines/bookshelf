@@ -40,25 +40,40 @@ describe 'API Book', type: :request do
 
   describe 'GET /books/:id' do
     let(:book) { FactoryBot.create(:book) }
+    let(:book_id) { book.id }
 
-    it 'returns the book item' do
-      get "/api/v1/books/#{book.id}"
+    before { get "/api/v1/books/#{book_id}" }
 
-      #checks that the response status is a 200
-      expect(response).to have_http_status(:success)
+    context 'when book exists' do
+      it 'returns the book item' do
+        #checks that the response status is a 200
+        expect(response).to have_http_status(:success)
 
-      #checks that the book we whant is being returned
-      expect(response_body['id']).to eq(book.id)
+        #checks that the book we whant is being returned
+        expect(response_body['id']).to eq(book_id)
 
-      #checks the actual content of response
-      expect(response_body).to eq(
-        {
-          'id' => 1,
-          'title' => 'The Bitcoin Standard',
-          'author_name' => 'Saifedean Ammous',
-          'author_age' => 40
-        }
-      )
+        #checks the actual content of response
+        expect(response_body).to eq(
+          {
+            'id' => 1,
+            'title' => 'The Bitcoin Standard',
+            'author_name' => 'Saifedean Ammous',
+            'author_age' => 40
+          }
+        )
+      end
+    end
+
+    context "when book doen't exist" do
+      let(:book_id) { 0 }
+
+      it 'returns an error message' do
+        #checks that the response status is a 404
+        expect(response).to have_http_status(:not_found)
+
+        #checks that there is being returned a not found message
+        expect(response.body).to include("Couldn't find Book with 'id'=0")
+      end
     end
   end
 
