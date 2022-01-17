@@ -68,7 +68,7 @@ describe 'API Book', type: :request do
       let(:book_id) { 0 }
 
       it 'returns an error message' do
-        #checks that the response status is a 404
+        #checks the response code
         expect(response).to have_http_status(:not_found)
 
         #checks that there is being returned a not found message
@@ -78,30 +78,46 @@ describe 'API Book', type: :request do
   end
 
   describe 'POST /books' do
-    it 'create a new book' do
-      # checks that the book was actually created
-      # by comparing the number of rows in the database before and after the post request
-      expect {
+    context 'when request attributes are valid' do
+      it 'create a new book' do
+        # checks that the book was actually created
+        # by comparing the number of rows in the database before and after the post request
+        expect {
+          post '/api/v1/books', params: {
+            book: { title: '1984', author_id: author.id },
+          }
+        }.to change { Book.count }.from(0).to(1)
+
+        #because when we create a book we first create an author
+        expect(Author.count).to eq(1)
+
+        #checks the response code
+        expect(response).to have_http_status(:created)
+
+        #checks the actual content of response
+        expect(response_body).to eq(
+          {
+            'id' => 1,
+            'title' => '1984',
+            'author_name' => 'George Orwell',
+            'author_age' => 99
+          }
+        )
+      end
+    end
+
+    context 'when request attributes are invalid' do
+      it 'returns an error message' do
         post '/api/v1/books', params: {
-          book: { title: '1984', author_id: author.id },
+          book: { title: '' },
         }
-      }.to change { Book.count }.from(0).to(1)
 
-      #because when we create a book we first create an author
-      expect(Author.count).to eq(1)
+        #checks the response code
+        expect(response).to have_http_status(:unprocessable_entity)
 
-      #checks the response code
-      expect(response).to have_http_status(:created)
-
-      #checks the actual content of response
-      expect(response_body).to eq(
-        {
-          'id' => 1,
-          'title' => '1984',
-          'author_name' => 'George Orwell',
-          'author_age' => 99
-        }
-      )
+        #checks that there is being returned an unprocessable entity message
+        expect(response.body).to include("can't be blank")
+      end
     end
   end
 
